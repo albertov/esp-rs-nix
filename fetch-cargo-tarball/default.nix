@@ -23,6 +23,7 @@ in
 , patches ? [ ]
 , sourceRoot ? ""
 , cargoUpdateHook ? ""
+, cargoVendorOptions ? ""
 , ...
 } @ args:
 
@@ -62,7 +63,7 @@ stdenv.mkDerivation ({
 
     ${cargoUpdateHook}
 
-    cargo vendor $name | cargo-vendor-normalise > $CARGO_CONFIG
+    cargo vendor ${cargoVendorOptions} $name | cargo-vendor-normalise > $CARGO_CONFIG
 
     # Add the Cargo.lock to allow hash invalidation
     cp Cargo.lock.orig $name/Cargo.lock

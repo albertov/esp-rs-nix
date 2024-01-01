@@ -3,8 +3,11 @@
 fetchFromGitHub {
   owner = "esp-rs";
   repo = "rust";
-  # https://github.com/esp-rs/rust/tree/esp-1.58.0.0
-  rev = "de915f898306706ce86bd8737be9fc3f095dcc8c";
+  rev = "98053514f4ed7df16235ada9b89beeee59e1a747";
   fetchSubmodules = true;
-  sha256 = "sha256-xwp2c4bKlFOQ1qoUmanFsqAzTb93Z3x2XfJOchCl59Y=";
+  sha256 = "sha256-r+Xfj0aBKWao+deRCwZPwBFFb+Rgc2+J0TNIFEMOZB0=";
+  # reduce closure size by removing llvm-project
+  postFetch = ''
+    rm -fr $out/src/llvm-project
+  '';
 }
