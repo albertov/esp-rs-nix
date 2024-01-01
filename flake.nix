@@ -46,6 +46,7 @@
         rustPlatform = pkgs.makeRustPlatform {
           inherit (packages) rustc cargo;
         };
+        toolchain = pkgs.callPackage ./toolchain.nix { };
       };
       apps = {
         cargo = flake-utils.lib.mkApp { drv = packages.cargo; };
