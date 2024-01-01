@@ -24,6 +24,7 @@ stdenv.mkDerivation rec {
     "-DLLVM_ENABLE_PROJECTS='clang'"
     "-DLLVM_INSTALL_UTILS=ON"
     "-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD='Xtensa'"
+    "-DLLVM_LINK_LLVM_DYLIB=ON"
   ];
 
   meta = with lib; {

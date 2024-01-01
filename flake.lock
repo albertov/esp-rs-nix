@@ -51,16 +51,16 @@
     "espressif-llvm-project": {
       "flake": false,
       "locked": {
-        "lastModified": 1646861111,
-        "narHash": "sha256-sYP4MQSoo/yJbi6QlgJNBWbrzoazS4ZSl3iXwS/vDV4=",
+        "lastModified": 1699874658,
+        "narHash": "sha256-FJs2RRFwkZcgUniZCTxw1C86S1W1eZLocqnj8nYstVE=",
         "owner": "espressif",
         "repo": "llvm-project",
-        "rev": "110fa852f368e880084b59c8893db1c09b1e994b",
+        "rev": "28bc39e148478895bfc536d00cf18766f7c92c20",
         "type": "github"
       },
       "original": {
         "owner": "espressif",
-        "ref": "xtensa_release_13.0.0",
+        "ref": "esp-16.0.4-20231113",
         "repo": "llvm-project",
         "type": "github"
       }

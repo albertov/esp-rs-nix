@@ -15,7 +15,7 @@
       flake = false;
     };
     espressif-llvm-project = {
-      url = "github:espressif/llvm-project/xtensa_release_13.0.0";
+      url = "github:espressif/llvm-project/esp-16.0.4-20231113";
       flake = false;
     };
   };
