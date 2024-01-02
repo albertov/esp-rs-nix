@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "LLVM xtensa";
-    homepage = https://github.com/espressif/llvm-project;
+    homepage = "https://github.com/espressif/llvm-project";
     license = licenses.asl20;
   };
 }

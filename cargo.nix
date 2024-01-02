@@ -6,7 +6,7 @@
 let
   rust = callPackage ./rust.nix { };
 in
-cargo.overrideAttrs (oA: {
+cargo.overrideAttrs (_oA: {
   name = "cargo-xtensa";
   inherit (rust) version src cargoDeps;
   buildAndTestSubdir = "src/tools/cargo";

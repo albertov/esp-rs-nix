@@ -20,7 +20,7 @@ let
   rust = callPackage ./rust.nix { };
   cargoDeps = rust.bootstrapCargoDeps;
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "esp32-rustc";
   inherit (rust) version src;
   inherit cargoDeps;

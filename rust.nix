@@ -1,6 +1,4 @@
-{ callPackage
-, fetchFromGitHub
-}:
+{ callPackage }:
 
 rec {
   version = "1.74.0.1";
