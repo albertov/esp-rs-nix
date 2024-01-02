@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     espflash = {
       url = "github:esp-rs/espflash";
       flake = false;
@@ -18,67 +18,74 @@
       url = "github:espressif/llvm-project/esp-16.0.4-20231113";
       flake = false;
     };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    pre-commit-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.garnix.io"
+    ];
+    extra-trusted-public-keys = [
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    ];
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , espflash
-    , espmonitor
-    , embuild
-    , espressif-llvm-project
-    }:
-    flake-utils.lib.eachDefaultSystem (system:
-    let pkgs = nixpkgs.legacyPackages.${system}; in
-    rec {
-      packages = flake-utils.lib.flattenTree {
-        cargo = pkgs.callPackage ./cargo.nix { inherit (packages) rustc; };
-        cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit espflash; };
-        cargo-espmonitor = pkgs.callPackage ./cargo-espmonitor.nix { inherit espmonitor; };
-        espflash = pkgs.callPackage ./espflash.nix { inherit espflash; };
-        espmonitor = pkgs.callPackage ./espmonitor.nix { inherit espmonitor; };
-        ldproxy = pkgs.callPackage ./ldproxy.nix { inherit embuild; };
-        llvm-xtensa = pkgs.callPackage ./llvm-xtensa.nix { inherit espressif-llvm-project; };
-        rust-src = pkgs.callPackage ./rust-src.nix { };
-        rustc = pkgs.callPackage ./rustc.nix { inherit (packages) llvm-xtensa; };
-
-        rustPlatform = pkgs.makeRustPlatform {
-          inherit (packages) rustc cargo;
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } ({ ... }: {
+      systems = [
+        "x86_64-linux"
+      ];
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+        ./check.nix
+        ./devshell.nix
+        ./fmt.nix
+      ];
+      perSystem = { pkgs, self', ... }: {
+        packages = {
+          cargo = pkgs.callPackage ./cargo.nix { inherit (self'.packages) rustc; };
+          cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit (inputs) espflash; };
+          cargo-espmonitor = pkgs.callPackage ./cargo-espmonitor.nix { inherit (inputs) espmonitor; };
+          espflash = pkgs.callPackage ./espflash.nix { inherit (inputs) espflash; };
+          espmonitor = pkgs.callPackage ./espmonitor.nix { inherit (inputs) espmonitor; };
+          ldproxy = pkgs.callPackage ./ldproxy.nix { inherit (inputs) embuild; };
+          llvm-xtensa = pkgs.callPackage ./llvm-xtensa.nix { inherit (inputs) espressif-llvm-project; };
+          rust-src = pkgs.callPackage ./rust-src.nix { };
+          rustc = pkgs.callPackage ./rustc.nix { inherit (self'.packages) llvm-xtensa; };
+          toolchain = pkgs.callPackage ./toolchain.nix { };
         };
-        toolchain = pkgs.callPackage ./toolchain.nix { };
-      };
-      apps = {
-        cargo = flake-utils.lib.mkApp { drv = packages.cargo; };
-        espflash = flake-utils.lib.mkApp { drv = packages.espflash; };
-        espmonitor = flake-utils.lib.mkApp { drv = packages.espmonitor; };
-        rustc = flake-utils.lib.mkApp { drv = packages.rustc; };
-      };
-
-      devShell =
-        let
-          flakePkgs = with packages; [
-            cargo
-            cargo-espflash
-            cargo-espmonitor
-            espflash
-            espmonitor
-            ldproxy
-            llvm-xtensa
-            rust-src
-            rustc
-          ];
-          nixPkgs = with pkgs; [
-            cargo-generate
-            rustup
-            esptool
-          ];
-        in
-        pkgs.mkShell {
-          buildInputs = flakePkgs ++ nixPkgs;
-
-          LIBCLANG_PATH = "${packages.llvm-xtensa}/lib";
+        apps = {
+          cargo = {
+            type = "app";
+            program = "${self'.packages.cargo}/bin/cargo";
+          };
+          espflash = {
+            type = "app";
+            program = "${self'.packages.espflash}/bin/espflash";
+          };
+          espmonitor = {
+            type = "app";
+            program = "${self'.packages.espmonitor}/bin/espmonitor";
+          };
+          rustc = {
+            type = "app";
+            program = "${self'.packages.rustc}/bin/rustc";
+          };
         };
+        overlayAttrs = self'.packages;
+      };
     }
     );
 }
