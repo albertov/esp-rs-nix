@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    espflash = {
-      url = "github:esp-rs/espflash";
-      flake = false;
-    };
     espmonitor = {
       url = "github:esp-rs/espmonitor";
       flake = false;
@@ -45,7 +41,7 @@
     inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } ({ ... }: {
       systems = [
-        "x86_64-linux"
+        "x86_64-linux" "aarch64-darwin"
       ];
       imports = [
         inputs.flake-parts.flakeModules.easyOverlay
@@ -56,9 +52,7 @@
       perSystem = { pkgs, self', ... }: {
         packages = {
           cargo = pkgs.callPackage ./cargo.nix { inherit (self'.packages) rustc; };
-          cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit (inputs) espflash; };
           cargo-espmonitor = pkgs.callPackage ./cargo-espmonitor.nix { inherit (inputs) espmonitor; };
-          espflash = pkgs.callPackage ./espflash.nix { inherit (inputs) espflash; };
           espmonitor = pkgs.callPackage ./espmonitor.nix { inherit (inputs) espmonitor; };
           ldproxy = pkgs.callPackage ./ldproxy.nix { inherit (inputs) embuild; };
           llvm-xtensa = pkgs.callPackage ./llvm-xtensa.nix { inherit (inputs) espressif-llvm-project; };
@@ -70,10 +64,6 @@
           cargo = {
             type = "app";
             program = "${self'.packages.cargo}/bin/cargo";
-          };
-          espflash = {
-            type = "app";
-            program = "${self'.packages.espflash}/bin/espflash";
           };
           espmonitor = {
             type = "app";

@@ -37,22 +37,6 @@
         "type": "github"
       }
     },
-    "espflash": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1647962145,
-        "narHash": "sha256-m2zB+02DwbbJq0db+pES2j3FO/cYLPqGfurQ7IiBkgM=",
-        "owner": "esp-rs",
-        "repo": "espflash",
-        "rev": "369dffda4a4289e360712239fb33dce0a6a5c241",
-        "type": "github"
-      },
-      "original": {
-        "owner": "esp-rs",
-        "repo": "espflash",
-        "type": "github"
-      }
-    },
     "espmonitor": {
       "flake": false,
       "locked": {
@@ -161,11 +145,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1703499205,
-        "narHash": "sha256-lF9rK5mSUfIZJgZxC3ge40tp1gmyyOXZ+lRY3P8bfbg=",
+        "lastModified": 1706701482,
+        "narHash": "sha256-4FF5l9v2lBgOUWzP3DcntfsXvEuao5FhhQcJ4SbwjFE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e1fa12d4f6c6fe19ccb59cac54b5b3f25e160870",
+        "rev": "269ce7215bb5b436546786e8d354d37903e102a8",
         "type": "github"
       },
       "original": {
@@ -237,7 +221,6 @@
       "inputs": {
         "devshell": "devshell",
         "embuild": "embuild",
-        "espflash": "espflash",
         "espmonitor": "espmonitor",
         "espressif-llvm-project": "espressif-llvm-project",
         "flake-parts": "flake-parts",

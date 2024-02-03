@@ -9,9 +9,7 @@
         let
           flakePkgs = with self'.packages; [
             cargo
-            cargo-espflash
             cargo-espmonitor
-            espflash
             espmonitor
             ldproxy
             llvm-xtensa
@@ -21,6 +19,8 @@
           nixPkgs = with pkgs; [
             cargo-generate
             esptool
+            cargo-espflash
+            espflash
           ];
         in
         flakePkgs ++ nixPkgs;

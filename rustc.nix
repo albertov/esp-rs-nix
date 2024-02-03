@@ -14,6 +14,8 @@
 , openssl
 , pkgsBuildHost
 , cargo
+, libiconv
+, zlib
 }:
 
 let
@@ -63,6 +65,8 @@ stdenv.mkDerivation (_finalAttrs: {
     pkg-config
     xz
     llvm-xtensa
+    libiconv
+    zlib
   ];
 
   buildInputs = [ openssl llvm-xtensa ];
@@ -102,6 +106,7 @@ stdenv.mkDerivation (_finalAttrs: {
     license = [ licenses.mit licenses.asl20 ];
     platforms = [
       "x86_64-linux"
+      "aarch64-darwin"
       "xtensa-esp32-espidf"
       "xtensa-esp32-none-elf"
       "xtensa-esp32s2-espidf"

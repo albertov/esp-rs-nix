@@ -3,9 +3,9 @@
 fetchFromGitHub {
   owner = "esp-rs";
   repo = "rust";
-  rev = "98053514f4ed7df16235ada9b89beeee59e1a747";
+  rev = "8edb9b87e75769a7656750176d5cad285229a789";
   fetchSubmodules = true;
-  sha256 = "sha256-r+Xfj0aBKWao+deRCwZPwBFFb+Rgc2+J0TNIFEMOZB0=";
+  hash = "sha256-rW3QHZhDhckETWihCeeWbArB7fTB3L9rtavVnULkmgs";
   # reduce closure size by removing llvm-project
   postFetch = ''
     rm -fr $out/src/llvm-project

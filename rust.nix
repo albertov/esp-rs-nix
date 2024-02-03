@@ -1,7 +1,7 @@
 { callPackage }:
 
 rec {
-  version = "1.74.0.1";
+  version = "1.75.0.0";
 
   src = callPackage ./rust-src.nix { };
 
@@ -15,7 +15,7 @@ rec {
 
   bootstrapCargoDeps = fetchCargoTarball {
     inherit src;
-    sha256 = "sha256-vAPVxNBL9ye7LyCS2iHM5M1OCdlixoqpKtsaRjH5aec=";
+    sha256 = "sha256-iAc7UUR49xPchuy30oU008l7Eq/ZKze6Xxja46tXwik";
     cargoVendorOptions = "-s src/bootstrap/Cargo.toml -s src/tools/rust-analyzer/Cargo.toml";
   };
 
