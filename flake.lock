@@ -57,10 +57,10 @@
       "flake": false,
       "locked": {
         "lastModified": 1699874658,
-        "narHash": "sha256-FJs2RRFwkZcgUniZCTxw1C86S1W1eZLocqnj8nYstVE=",
+        "narHash": "sha256-EA1ZlST39wm19F44cJqH2l3x2+LdMSaiZ4fm1R4X0lg",
         "owner": "espressif",
         "repo": "llvm-project",
-        "rev": "28bc39e148478895bfc536d00cf18766f7c92c20",
+        "rev": "4c4770d4e99fc2039e05701ef047f26a07dd3047",
         "type": "github"
       },
       "original": {

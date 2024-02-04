@@ -30,6 +30,10 @@ let
       "-DLLVM_LINK_LLVM_DYLIB=ON"
     ];
 
+    #installPhase = ''
+      #ln -s $out/lib/libLLVM.dylib $out/lib/libLLVM-17.dylib
+    #'';
+
     meta = with lib; {
       description = "LLVM xtensa";
       homepage = "https://github.com/espressif/llvm-project";
@@ -37,9 +41,10 @@ let
     };
   };
 in
+  #llvm-xtensa
 stdenv.mkDerivation {
   name = "llvm-xtensa-wrapped";
-  version = "16.0.0";
+  version = "17.0.0";
 
   src = llvm-xtensa;
 
@@ -53,6 +58,6 @@ stdenv.mkDerivation {
     mkdir $out
     rsync -av --no-perms $src/ $out/
     chmod -R +w $out
-    ln -s $out/lib/libLLVM.dylib $out/lib/libLLVM-16.dylib
+    ln -s $out/lib/libLLVM.dylib $out/lib/libLLVM-17.dylib
   '';
 }
