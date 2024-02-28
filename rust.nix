@@ -10,7 +10,7 @@ rec {
   cargoDeps = fetchCargoTarball {
     inherit src;
     sourceRoot = "${src.name}/src/tools/cargo";
-    sha256 = "sha256-sBPaCWjjylAtf9nXy7635TPmht3PRkuV84DomFtjlAM=";
+    sha256 = "sha256-ZXD9m+s1yomNLrVX5Dj+DJkhIrQKqeXrpIie8wovsns=";
   };
 
   bootstrapCargoDeps = fetchCargoTarball {

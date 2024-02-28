@@ -3,6 +3,7 @@
 , espflash
 , pkg-config
 , udev
+, openssl
 }:
 
 let
@@ -13,14 +14,15 @@ rustPlatform.buildRustPackage {
   inherit (cargoToml.package) version;
 
   src = espflash;
+  OPENSSL_NO_VENDOR=1;
 
   buildAndTestSubdir = "cargo-espflash";
 
   cargoLock.lockFile = "${espflash}/Cargo.lock";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config openssl ];
 
-  buildInputs = [ udev ];
+  buildInputs = [ udev openssl.dev ];
 
   meta = with lib; {
     inherit (cargoToml.package) description;

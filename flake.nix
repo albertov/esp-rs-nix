@@ -6,6 +6,12 @@
       url = "github:esp-rs/espmonitor";
       flake = false;
     };
+    espflash = {
+      # >= 3 doesn't support esp8266
+      url = "github:esp-rs/espflash/v2.1.0";
+      flake = false;
+    };
+    nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
     embuild = {
       url = "github:ivmarkov/embuild";
       flake = false;
@@ -49,7 +55,11 @@
         ./devshell.nix
         ./fmt.nix
       ];
-      perSystem = { pkgs, self', ... }: {
+      perSystem = { system, pkgs, self', ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [ inputs.nixpkgs-esp-dev.overlays.default ];
+        };
         packages = {
           cargo = pkgs.callPackage ./cargo.nix { inherit (self'.packages) rustc; };
           cargo-espmonitor = pkgs.callPackage ./cargo-espmonitor.nix { inherit (inputs) espmonitor; };
@@ -59,6 +69,7 @@
           rust-src = pkgs.callPackage ./rust-src.nix { };
           rustc = pkgs.callPackage ./rustc.nix { inherit (self'.packages) llvm-xtensa; };
           toolchain = pkgs.callPackage ./toolchain.nix { };
+          cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit (inputs) espflash;};
         };
         apps = {
           cargo = {

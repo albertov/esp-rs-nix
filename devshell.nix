@@ -3,13 +3,15 @@
     inputs.devshell.flakeModule
   ];
 
-  perSystem = { config, self', pkgs, ... }: {
-    devshells.default = {
+  perSystem = { self', pkgs, ... }: {
+    devShells.default = pkgs.mkShell {
+      ignoreCollisions = true;
       packages =
         let
           flakePkgs = with self'.packages; [
             cargo
             cargo-espmonitor
+            cargo-espflash
             espmonitor
             ldproxy
             llvm-xtensa
@@ -17,14 +19,16 @@
             rustc
           ];
           nixPkgs = with pkgs; [
+            clang
             cargo-generate
             esptool
-            cargo-espflash
+            #cargo-espflash
             espflash
+            esp8266-rtos-sdk
           ];
         in
         flakePkgs ++ nixPkgs;
-      devshell.startup.pre-commit.text = config.pre-commit.installationScript;
+      #devShells.startup.pre-commit.text = config.pre-commit.installationScript;
     };
   };
 }
