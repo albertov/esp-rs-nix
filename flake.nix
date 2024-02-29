@@ -72,6 +72,9 @@
           cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit (inputs) espflash;};
           embuild = pkgs.callPackage ./embuild.nix { inherit (inputs) embuild;};
           inherit (inputs.qemu-espressif.packages.${system}) qemu-espressif;
+          rustPlatform =
+            let ps = { inherit (self'.packages) cargo rustc;};
+            in pkgs.makeRustPlatform { cargo = ps; rustc = ps;};
         };
         apps = {
           cargo = {

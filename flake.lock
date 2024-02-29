@@ -219,17 +219,16 @@
         ]
       },
       "locked": {
-        "dirtyRev": "b24ab577a99970666b1ba88cdc4039b464752305-dirty",
-        "dirtyShortRev": "b24ab57-dirty",
-        "lastModified": 1708448523,
+        "lastModified": 1709225421,
         "narHash": "sha256-EA20xLP4Vxm559tYHmCSxfPdbguMQ1IWlHaw1NbdmL0=",
-        "type": "git",
-        "url": "file:///home/alberto/src/esp32/nixpkgs-esp-dev"
+        "owner": "albertov",
+        "repo": "nixpkgs-esp-dev",
+        "rev": "8e2876cedac9c932e8ac4fcbafc284ba73100189",
+        "type": "github"
       },
       "original": {
-        "owner": "madmo",
+        "owner": "albertov",
         "repo": "nixpkgs-esp-dev",
-        "rev": "b24ab577a99970666b1ba88cdc4039b464752305",
         "type": "github"
       }
     },
