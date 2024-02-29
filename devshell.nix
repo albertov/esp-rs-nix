@@ -6,6 +6,9 @@
   perSystem = { self', pkgs, ... }: {
     devShells.default = pkgs.mkShell {
       ignoreCollisions = false;
+      shellHook = ''
+        LIBCLANG_PATH=${self'.packages.llvm-xtensa}/lib
+        '';
       packages =
         let
           flakePkgs = with self'.packages; [
@@ -14,24 +17,21 @@
             cargo-espflash
             espmonitor
             ldproxy
-            #llvm-xtensa
+            llvm-xtensa
             rust-src
             rustc
             qemu-espressif
             #embuild
           ];
           nixPkgs = with pkgs; [
-            #clang
             cargo-generate
             esptool
             cargo-espflash
             espflash
-            esp-idf-full
-            rustPlatform.bindgenHook
-            #git
+            # can't get esp32 to compile with 5.2
+            # it can with 5.1
+            esp-idf-full_51
             gnumake
-            #flex
-            #bison
             pkg-config
             cmake
             ninja
