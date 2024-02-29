@@ -24,15 +24,15 @@
     "embuild": {
       "flake": false,
       "locked": {
-        "lastModified": 1645385004,
-        "narHash": "sha256-3JpS6MsZGwFbPnS/V0jcPnT5ZGFD+xzyJuvPDbj3H+o=",
-        "owner": "ivmarkov",
+        "lastModified": 1707930014,
+        "narHash": "sha256-Bq4vvn/MImBi9AMLbv95LRsjeSGg+crqSsi1TRNqpRo=",
+        "owner": "esp-rs",
         "repo": "embuild",
-        "rev": "78babd2870576fca51de8cefb6b1f01d768a451c",
+        "rev": "69aea8b02b5ebbf0d6f0de65839cc28fca77a1b3",
         "type": "github"
       },
       "original": {
-        "owner": "ivmarkov",
+        "owner": "esp-rs",
         "repo": "embuild",
         "type": "github"
       }
@@ -40,16 +40,15 @@
     "espflash": {
       "flake": false,
       "locked": {
-        "lastModified": 1696347028,
-        "narHash": "sha256-Nv2/33VYpCkPYyUhlVDYJR1BkbtEvEPtmgyZXfVn1ug=",
+        "lastModified": 1708951977,
+        "narHash": "sha256-ZliM59TmStghGwM+weTIu0k1jmG1oHzpKnJq3+pYLqQ=",
         "owner": "esp-rs",
         "repo": "espflash",
-        "rev": "652740efd515c1c78211a739a9dd9bca007b5761",
+        "rev": "8353080712242b436bf79eb88ecdd2afb827d6b1",
         "type": "github"
       },
       "original": {
         "owner": "esp-rs",
-        "ref": "v2.1.0",
         "repo": "espflash",
         "type": "github"
       }
@@ -157,6 +156,24 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_4"
+      },
+      "locked": {
+        "lastModified": 1705309234,
+        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -197,19 +214,22 @@
     "nixpkgs-esp-dev": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1707293744,
-        "narHash": "sha256-Cm4ew09pAORjtXPK7TSJJWp2N2tTo4rFbcGv2DEf+vQ=",
-        "owner": "mirrexagon",
-        "repo": "nixpkgs-esp-dev",
-        "rev": "2a747222404c2b3e858813da8e1f16acd903a4d6",
-        "type": "github"
+        "dirtyRev": "b24ab577a99970666b1ba88cdc4039b464752305-dirty",
+        "dirtyShortRev": "b24ab57-dirty",
+        "lastModified": 1708448523,
+        "narHash": "sha256-EA20xLP4Vxm559tYHmCSxfPdbguMQ1IWlHaw1NbdmL0=",
+        "type": "git",
+        "url": "file:///home/alberto/src/esp32/nixpkgs-esp-dev"
       },
       "original": {
-        "owner": "mirrexagon",
+        "owner": "madmo",
         "repo": "nixpkgs-esp-dev",
+        "rev": "b24ab577a99970666b1ba88cdc4039b464752305",
         "type": "github"
       }
     },
@@ -247,21 +267,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1707205916,
-        "narHash": "sha256-fmRJilYGlB7VCt3XsdYxrA0u8e/K84O5xYucerUY0iM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "8cc79aa39bbc6eaedaf286ae655b224c71e02907",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
-      }
-    },
     "pre-commit-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -286,6 +291,27 @@
         "type": "github"
       }
     },
+    "qemu-espressif": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1707047678,
+        "narHash": "sha256-xBYc4bQRyXD7/YwgiGVSNdZdAp4LFaiAlsLeXZJ2aDU=",
+        "owner": "SFrijters",
+        "repo": "nix-qemu-espressif",
+        "rev": "0ad945f0d10c15f18c86fc9c58bffb95d9a630de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SFrijters",
+        "repo": "nix-qemu-espressif",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "devshell": "devshell",
@@ -297,6 +323,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-esp-dev": "nixpkgs-esp-dev",
         "pre-commit-nix": "pre-commit-nix",
+        "qemu-espressif": "qemu-espressif",
         "treefmt-nix": "treefmt-nix"
       }
     },
@@ -331,6 +358,21 @@
       }
     },
     "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",

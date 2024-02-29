@@ -5,7 +5,7 @@
 
   perSystem = { self', pkgs, ... }: {
     devShells.default = pkgs.mkShell {
-      ignoreCollisions = true;
+      ignoreCollisions = false;
       packages =
         let
           flakePkgs = with self'.packages; [
@@ -14,17 +14,32 @@
             cargo-espflash
             espmonitor
             ldproxy
-            llvm-xtensa
+            #llvm-xtensa
             rust-src
             rustc
+            qemu-espressif
+            #embuild
           ];
           nixPkgs = with pkgs; [
-            clang
+            #clang
             cargo-generate
             esptool
-            #cargo-espflash
+            cargo-espflash
             espflash
-            esp8266-rtos-sdk
+            esp-idf-full
+            rustPlatform.bindgenHook
+            #git
+            gnumake
+            #flex
+            #bison
+            pkg-config
+            cmake
+            ninja
+            #ncurses5
+
+            #python3
+            #python3Packages.pip
+            #python3Packages.virtualenv
           ];
         in
         flakePkgs ++ nixPkgs;

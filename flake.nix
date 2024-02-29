@@ -6,14 +6,12 @@
       url = "github:esp-rs/espmonitor";
       flake = false;
     };
-    espflash = {
-      # >= 3 doesn't support esp8266
-      url = "github:esp-rs/espflash/v2.1.0";
+    embuild = {
+      url = "github:esp-rs/embuild";
       flake = false;
     };
-    nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
-    embuild = {
-      url = "github:ivmarkov/embuild";
+    espflash = {
+      url = "github:esp-rs/espflash";
       flake = false;
     };
     espressif-llvm-project = {
@@ -32,15 +30,14 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  nixConfig = {
-    extra-substituters = [
-      "https://cache.garnix.io"
-    ];
-    extra-trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
+    qemu-espressif = {
+      url = "github:SFrijters/nix-qemu-espressif";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs-esp-dev = {
+      url = "github:albertov/nixpkgs-esp-dev";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -58,7 +55,10 @@
       perSystem = { system, pkgs, self', ... }: {
         _module.args.pkgs = import inputs.nixpkgs {
           inherit system;
-          overlays = [ inputs.nixpkgs-esp-dev.overlays.default ];
+          overlays = [
+            inputs.nixpkgs-esp-dev.overlays.default
+            (import ./overlay.nix inputs)
+          ];
         };
         packages = {
           cargo = pkgs.callPackage ./cargo.nix { inherit (self'.packages) rustc; };
@@ -70,6 +70,8 @@
           rustc = pkgs.callPackage ./rustc.nix { inherit (self'.packages) llvm-xtensa; };
           toolchain = pkgs.callPackage ./toolchain.nix { };
           cargo-espflash = pkgs.callPackage ./cargo-espflash.nix { inherit (inputs) espflash;};
+          embuild = pkgs.callPackage ./embuild.nix { inherit (inputs) embuild;};
+          inherit (inputs.qemu-espressif.packages.${system}) qemu-espressif;
         };
         apps = {
           cargo = {
